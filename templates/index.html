@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>THS Multi Speciality Hospital</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header>
+    <h1>THS Multi Speciality Hospital</h1>
+    <p>Tumkur • 24/7 Emergency Care</p>
+    <nav>
+      <a href="#about">About</a><a href="#services">Departments</a><a href="#doctors">Doctors</a>
+      <a href="#book">Book Appointment</a><a href="#emergency">Emergency</a><a href="#careers">Careers</a>
+      <a href="#portal">Patient Portal</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="about"><h2>About</h2><p>Modern, professional care for patients, families, and staff.</p></section>
+
+  <section id="services">
+    <h2>Departments & Services</h2>
+    <ul><li>Cardiology</li><li>Orthopedics</li><li>Pediatrics</li><li>Emergency & Trauma</li><li>Laboratory</li></ul>
+  </section>
+
+  <section id="doctors">
+    <h2>Doctor Profiles & Availability</h2>
+    <div class="cards">
+      {% for d in doctors %}
+      <article><h3>{{ d.name }}</h3><p>{{ d.specialization }}</p><p><strong>Available:</strong> {{ d.availability }}</p></article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="book">
+    <h2>Book Appointment</h2>
+    <form method="post" action="/appointments">
+      <input name="patient_name" placeholder="Patient Name" required>
+      <input name="phone" placeholder="Phone" required>
+      <input name="email" placeholder="Email">
+      <select name="doctor_id" required>
+        <option value="">Choose Doctor</option>
+        {% for d in doctors %}<option value="{{ d.id }}">{{ d.name }} - {{ d.specialization }}</option>{% endfor %}
+      </select>
+      <input type="date" name="preferred_date" required>
+      <textarea name="reason" placeholder="Reason for visit"></textarea>
+      <button type="submit">Submit Appointment</button>
+    </form>
+  </section>
+
+  <section id="emergency"><h2>Emergency Contact</h2><p>Call now: <a href="tel:+918000000000">+91 80000 00000</a></p></section>
+
+  <section id="portal"><h2>Patient Portal/Login</h2><p>Login integration placeholder for reports/forms access.</p></section>
+
+  <section id="billing">
+    <h2>Pay Bills Online</h2>
+    <form method="post" action="/payments">
+      <input name="patient_name" placeholder="Patient Name" required>
+      <input name="invoice_no" placeholder="Invoice Number" required>
+      <input type="number" step="0.01" name="amount" placeholder="Amount" required>
+      <select name="payment_mode"><option>UPI</option><option>Card</option><option>Net Banking</option></select>
+      <button type="submit">Pay</button>
+    </form>
+  </section>
+
+  <section id="careers">
+    <h2>Careers</h2>
+    <form method="post" action="/careers">
+      <input name="full_name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input name="role" placeholder="Role Applied For" required>
+      <input type="number" name="experience" placeholder="Years of Experience">
+      <button type="submit">Apply</button>
+    </form>
+  </section>
+
+  <section id="contact"><h2>Contact</h2><p>THS Multi Speciality Hospital, Tumkur</p></section>
+  <section id="chat"><h2>Live Chat Support</h2><p>Chat widget placeholder (WhatsApp / web chat integration ready).</p></section>
+</body>
+</html>
